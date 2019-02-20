@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "Demo1ViewController.h"
 
 @interface ViewController ()
 
@@ -25,5 +26,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)click:(id)sender {
+    Class objClass = [Demo1ViewController class];
+    UIViewController *vc = [[objClass alloc] init];
+    [self presentViewController:vc animated:NO completion:nil];
+}
 
 @end
