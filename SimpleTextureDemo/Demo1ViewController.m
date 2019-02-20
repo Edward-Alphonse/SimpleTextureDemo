@@ -15,6 +15,7 @@
     GLuint vboIds[2];
     GLushort *indices;
     int indiceCount;
+    GLuint textureId;
 }
 
 @end
@@ -32,6 +33,7 @@
     [EAGLContext setCurrentContext:_context];
     [self setupProgram];
     [self setupVBO];
+    [self setupTexture];
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
 }
@@ -101,19 +103,19 @@
 - (void)setupVBO {
     memset(vboIds, 0, 2);
     
-    indiceCount = 3;
-    GLushort idxs[3] = {1, 0, 2};
+    indiceCount = 6;
+    GLushort idxs[6] = { 0, 1, 2, 0, 2, 3 };
     indices = idxs;
     
-    GLfloat vertices[3 * 7] =
-    {
-        -0.5f,  0.5f, 0.0f,        // v0
-        1.0f,  0.0f, 0.0f, 1.0f,  // c0
-        -1.0f, -0.5f, 0.0f,        // v1
-        0.0f,  1.0f, 0.0f, 1.0f,  // c1
-        0.0f, -0.5f, 0.0f,        // v2
-        0.0f,  0.0f, 1.0f, 1.0f,  // c2
-        
+    GLfloat vertices[4 * 5] =
+    { -0.5f,  0.5f, 0.0f,  // Position 0
+        0.0f,  0.0f,        // TexCoord 0
+        -0.5f, -0.5f, 0.0f,  // Position 1
+        0.0f,  1.0f,        // TexCoord 1
+        0.5f, -0.5f, 0.0f,  // Position 2
+        1.0f,  1.0f,        // TexCoord 2
+        0.5f,  0.5f, 0.0f,  // Position 3
+        1.0f,  0.0f         // TexCoord 3
     };
     
     glGenBuffers(2, vboIds);
@@ -124,25 +126,47 @@
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(idxs), indices, GL_STATIC_DRAW);
 }
 
+- (void)setupTexture {
+    GLubyte pixels[4 * 3] =
+    {
+        255,   0,   0, // Red
+        0, 255,   0, // Green
+        0,   0, 255, // Blue
+        255, 255,   0  // Yellow
+    };
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glGenTextures(1, &textureId);
+    glBindTexture(GL_TEXTURE_2D, textureId);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1, 4, 0, GL_RGB, GL_UNSIGNED_BYTE, pixels);
+    glTexParameteri ( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
+    glTexParameteri ( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
+}
+
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
     glClear(GL_COLOR_BUFFER_BIT);
     glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     glUseProgram(_program);
     
     int posSize = 3;
-    int colorSize = 4;
+    int texCoordSize = 2;
     int ptrOffset = 0;
 
     GLint posInx = glGetAttribLocation(_program, "a_position");
-    GLint colorIdx = glGetAttribLocation(_program, "a_color");
+    GLint textureIdx = glGetAttribLocation(_program, "a_texCoord");
     glEnableVertexAttribArray(posInx);
-    glEnableVertexAttribArray(colorIdx);
-    glVertexAttribPointer(posInx, posSize, GL_FLOAT, GL_FALSE, sizeof(GLfloat) *(posSize + colorSize), ptrOffset);
+    glEnableVertexAttribArray(textureIdx);
+    glVertexAttribPointer(posInx, posSize, GL_FLOAT, GL_FALSE, sizeof(GLfloat) *(posSize + texCoordSize), ptrOffset);
     ptrOffset += sizeof(GLfloat) * posSize;
-    glVertexAttribPointer(colorIdx, colorSize, GL_FLOAT, GL_FALSE, sizeof(GLfloat) *(posSize + colorSize), ptrOffset);
+    glVertexAttribPointer(textureIdx, texCoordSize, GL_FLOAT, GL_FALSE, sizeof(GLfloat) *(posSize + texCoordSize), ptrOffset);
+    
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, textureId);
+    GLint uniform = glGetUniformLocation(_program, "s_texture");
+    glUniform1i(uniform, 0);
+    
     glDrawElements(GL_TRIANGLES, indiceCount, GL_UNSIGNED_SHORT, 0);
     glDisableVertexAttribArray(posInx);
-    glDisableVertexAttribArray(colorIdx);
+    glDisableVertexAttribArray(textureIdx);
 }
 
 @end

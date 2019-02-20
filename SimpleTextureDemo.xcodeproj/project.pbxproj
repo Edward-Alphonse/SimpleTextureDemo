@@ -15,6 +15,11 @@
 		BAA07DDA221DBE05006EB9A2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA07DD9221DBE05006EB9A2 /* main.m */; };
 		BAA07DE4221DBE05006EB9A2 /* SimpleTextureDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA07DE3221DBE05006EB9A2 /* SimpleTextureDemoTests.m */; };
 		BAA07DEF221DBE05006EB9A2 /* SimpleTextureDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA07DEE221DBE05006EB9A2 /* SimpleTextureDemoUITests.m */; };
+		BAA07DFE221DBE95006EB9A2 /* Demo1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA07DFD221DBE94006EB9A2 /* Demo1ViewController.m */; };
+		BAA07E01221DBEA7006EB9A2 /* fShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BAA07DFF221DBEA7006EB9A2 /* fShader.fsh */; };
+		BAA07E02221DBEA7006EB9A2 /* vShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BAA07E00221DBEA7006EB9A2 /* vShader.vsh */; };
+		BAA07E05221DC57C006EB9A2 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAA07E04221DC57C006EB9A2 /* GLKit.framework */; };
+		BAA07E07221DC582006EB9A2 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAA07E06221DC582006EB9A2 /* OpenGLES.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +56,12 @@
 		BAA07DEA221DBE05006EB9A2 /* SimpleTextureDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleTextureDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAA07DEE221DBE05006EB9A2 /* SimpleTextureDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimpleTextureDemoUITests.m; sourceTree = "<group>"; };
 		BAA07DF0221DBE05006EB9A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BAA07DFC221DBE94006EB9A2 /* Demo1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Demo1ViewController.h; sourceTree = "<group>"; };
+		BAA07DFD221DBE94006EB9A2 /* Demo1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Demo1ViewController.m; sourceTree = "<group>"; };
+		BAA07DFF221DBEA7006EB9A2 /* fShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = fShader.fsh; sourceTree = "<group>"; };
+		BAA07E00221DBEA7006EB9A2 /* vShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = vShader.vsh; sourceTree = "<group>"; };
+		BAA07E04221DC57C006EB9A2 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		BAA07E06221DC582006EB9A2 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +69,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAA07E07221DC582006EB9A2 /* OpenGLES.framework in Frameworks */,
+				BAA07E05221DC57C006EB9A2 /* GLKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +98,7 @@
 				BAA07DE2221DBE05006EB9A2 /* SimpleTextureDemoTests */,
 				BAA07DED221DBE05006EB9A2 /* SimpleTextureDemoUITests */,
 				BAA07DC8221DBE04006EB9A2 /* Products */,
+				BAA07E03221DC57B006EB9A2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,6 +119,10 @@
 				BAA07DCB221DBE04006EB9A2 /* AppDelegate.m */,
 				BAA07DCD221DBE04006EB9A2 /* ViewController.h */,
 				BAA07DCE221DBE04006EB9A2 /* ViewController.m */,
+				BAA07DFC221DBE94006EB9A2 /* Demo1ViewController.h */,
+				BAA07DFD221DBE94006EB9A2 /* Demo1ViewController.m */,
+				BAA07DFF221DBEA7006EB9A2 /* fShader.fsh */,
+				BAA07E00221DBEA7006EB9A2 /* vShader.vsh */,
 				BAA07DD0221DBE04006EB9A2 /* Main.storyboard */,
 				BAA07DD3221DBE05006EB9A2 /* Assets.xcassets */,
 				BAA07DD5221DBE05006EB9A2 /* LaunchScreen.storyboard */,
@@ -130,6 +148,15 @@
 				BAA07DF0221DBE05006EB9A2 /* Info.plist */,
 			);
 			path = SimpleTextureDemoUITests;
+			sourceTree = "<group>";
+		};
+		BAA07E03221DC57B006EB9A2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BAA07E06221DC582006EB9A2 /* OpenGLES.framework */,
+				BAA07E04221DC57C006EB9A2 /* GLKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -241,6 +268,8 @@
 				BAA07DD7221DBE05006EB9A2 /* LaunchScreen.storyboard in Resources */,
 				BAA07DD4221DBE05006EB9A2 /* Assets.xcassets in Resources */,
 				BAA07DD2221DBE04006EB9A2 /* Main.storyboard in Resources */,
+				BAA07E02221DBEA7006EB9A2 /* vShader.vsh in Resources */,
+				BAA07E01221DBEA7006EB9A2 /* fShader.fsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BAA07DCF221DBE04006EB9A2 /* ViewController.m in Sources */,
+				BAA07DFE221DBE95006EB9A2 /* Demo1ViewController.m in Sources */,
 				BAA07DDA221DBE05006EB9A2 /* main.m in Sources */,
 				BAA07DCC221DBE04006EB9A2 /* AppDelegate.m in Sources */,
 			);
